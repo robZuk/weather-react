@@ -4,6 +4,7 @@ import { Temperature } from "../atoms/Temperature";
 import { formatDate } from "../../services/formatDate";
 import Spinner from "../atoms/Spinner";
 import useFetch from "../../hooks/useFetch";
+import env from "react-dotenv";
 
 function ForecastWeather({ temperatureType, setTemperatureType, location }) {
   const celsiusIcon = useRef();
@@ -14,7 +15,7 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
     loading,
     error,
   } = useFetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${window.env.API_KEY}`,
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${env.API_KEY}`,
     {}
   );
 

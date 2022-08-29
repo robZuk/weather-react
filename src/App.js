@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./styles/main.scss";
-
 import CurrentWeather from "./components/organisms/CurrentWeather";
 import ForecastWeather from "./components/organisms/ForecastWeather";
 import HightlightsWeather from "./components/organisms/HightlightsWeather";
@@ -8,8 +7,8 @@ import Search from "./components/organisms/Search";
 import Footer from "./components/atoms/Footer";
 import Spinner from "./components/atoms/Spinner";
 import useFetch from "./hooks/useFetch";
-
 import { userCurrentPosition } from "./services/geolocation";
+import env from "react-dotenv";
 
 function App() {
   const [temperatureType, setTemperatureType] = useState("celsius");
@@ -21,7 +20,7 @@ function App() {
     loading,
     error,
   } = useFetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lon}&appid=${window.env.API_KEY}`,
+    `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lon}&appid=${env.API_KEY}`,
     {}
   );
 
