@@ -57,8 +57,6 @@
       }
     }
     &-humidity {
-      // position: relative;
-      // align-items: center;
       @include block;
 
       &-progress {

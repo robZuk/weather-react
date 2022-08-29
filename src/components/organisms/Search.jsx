@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../atoms/Spinner";
 
-// import { coordinatesByLocation } from "../../services/data";
-
 function Search({
   showSearchingSection,
   setShowSearchingSection,
   setLocation,
 }) {
   const [inputValue, setInputValue] = useState(" ");
-  // const [searchedCities, setSearchedCities] = useState();
 
   let {
     data: searchedCities,
@@ -27,11 +24,6 @@ function Search({
     e.preventDefault();
     setInputValue(e.target[0].value);
   }
-
-  // function onChange(e) {
-  //   e.preventDefault();
-  //   setInputValue(e.target.value);
-  // }
 
   return (
     <>
@@ -52,8 +44,6 @@ function Search({
         </button>
         <form className="search-section-form" onSubmit={search}>
           <input
-            // value={inputValue}
-            // onChange={onChange}
             type="search"
             style={{ fontFamily: "Raleway, FontAwesome" }}
             className="search-section-form-input fa"

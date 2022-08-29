@@ -12,14 +12,10 @@
 .search-section {
   position: absolute;
   z-index: 3;
-  // transform: translateX(-120%);
   width: 100%;
   height: 100%;
   background-color: $color1;
   transition: 0.3s ease-out;
-  // &.show {
-  //   transform: translateX(0%);
-  // }
   &-close_button {
     position: absolute;
     top: 20px;
