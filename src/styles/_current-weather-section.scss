@@ -1,0 +1,104 @@
+//current weather section
+.current-weather-section {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  .inner-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    background-repeat: no-repeat;
+    background-position: 50% 10%;
+    opacity: 0.3;
+  }
+
+  &-search_button {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    z-index: 3;
+    transform: translateY(-50%);
+    height: 50px;
+    width: 200px;
+    background-color: $color3;
+    color: $color5;
+    border: 0px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      letter-spacing: 1px;
+    }
+  }
+
+  &-location-icon {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 3;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    line-height: 22px;
+    background-color: $color3;
+    color: $color5;
+    border: 0px;
+    border-radius: 50%;
+    transition: 0.3s linear;
+    &:hover {
+      // font-size: 22px;
+      background-color: $color5;
+      color: $color3;
+    }
+  }
+
+  &-image {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    width: 200px;
+    transform: translateX(-50%);
+  }
+  &-temperature {
+    position: absolute;
+    top: 40%;
+    display: flex;
+    align-items: flex-end;
+    color: $color5;
+    font-weight: 500;
+    font-size: 144px;
+
+    span {
+      color: $color4;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+  }
+  &-title {
+    position: absolute;
+    top: 70%;
+    color: $color4;
+    font-size: 36px;
+  }
+  &-date {
+    position: absolute;
+    top: 85%;
+    color: $color6;
+    font-size: 18px;
+  }
+  &-location {
+    position: absolute;
+    top: 90%;
+    color: $color6;
+    font-size: 18px;
+  }
+}

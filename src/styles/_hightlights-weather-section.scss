@@ -1,0 +1,103 @@
+@mixin block {
+  &-title {
+    margin-top: 10px;
+  }
+  &-value {
+    font-size: 64px;
+    font-weight: 700;
+    margin: 0;
+    span {
+      font-size: 36px;
+      line-height: 36px;
+      font-weight: 500;
+    }
+  }
+}
+
+.hightlight-weather-section {
+  width: 80%;
+  margin-top: 50px;
+
+  &-title {
+    font-weight: 700;
+    font-size: 24px;
+    color: $color5;
+  }
+
+  &-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 20px;
+    div {
+      position: relative;
+      width: 350px;
+      height: 204px;
+      background-color: $color1;
+      color: $color5;
+      text-align: center;
+      &:nth-child(3),
+      &:nth-child(4) {
+        height: 159px;
+      }
+    }
+
+    &-wind-status {
+      @include block;
+
+      &-direction {
+        i {
+          margin-right: 10px;
+          margin-top: 10px;
+          background-color: $color3;
+          padding: 10px;
+          border-radius: 90%;
+        }
+      }
+    }
+    &-humidity {
+      // position: relative;
+      // align-items: center;
+      @include block;
+
+      &-progress {
+        width: 200px;
+        margin-top: 20px;
+        accent-color: $color8;
+        &::-webkit-progress-bar {
+          background-color: yellow;
+          border-radius: 7px;
+        }
+      }
+      &-progress-description {
+        dt {
+          position: absolute;
+          top: 150px;
+          right: 78%;
+          font-size: 12px;
+          &:nth-child(2) {
+            right: 50%;
+            transform: translateX(50%);
+          }
+          &:nth-child(3) {
+            right: 20%;
+          }
+        }
+        dd {
+          position: absolute;
+          right: 20%;
+          top: 182px;
+          font-size: 12px;
+          font-weight: 700;
+        }
+      }
+      &-visibility {
+        @include block;
+      }
+      &-airpressure {
+        @include block;
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+.search-section-background {
+  position: absolute;
+  left: 0%;
+  transform: translateX(-100%);
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background-color: $color3;
+  border-right: 1px solid $color1;
+}
+
+.search-section {
+  position: absolute;
+  z-index: 3;
+  // transform: translateX(-120%);
+  width: 100%;
+  height: 100%;
+  background-color: $color1;
+  transition: 0.3s ease-out;
+  // &.show {
+  //   transform: translateX(0%);
+  // }
+  &-close_button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: $color5;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+  &-form {
+    position: absolute;
+    top: 130px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+
+    &-input {
+      width: 285px;
+      height: 48px;
+      padding: 0 15px;
+      margin-right: 5px;
+      border: 1px solid $color5;
+      background-color: transparent;
+      color: $color5;
+      font-weight: 500;
+      font-size: 16px;
+      &:focus {
+        outline: none;
+      }
+    }
+    &-button {
+      width: 86px;
+      height: 48px;
+      background-color: $color10;
+      color: $color5;
+      border: 1px solid $color10;
+    }
+  }
+  &-list {
+    position: absolute;
+    top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 20px;
+    color: $color5;
+    list-style: none;
+
+    li {
+      position: relative;
+      width: 375px;
+      max-width: 100%;
+      padding: 20px 20px;
+      border: 1px solid $color1;
+      line-height: 16px;
+
+      i {
+        position: absolute;
+        right: 10px;
+        display: none;
+      }
+      &:hover {
+        border: 1px solid $color9;
+        i {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
