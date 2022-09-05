@@ -9,21 +9,26 @@ function Search({
   setLocation,
 }) {
   const [inputValue, setInputValue] = useState(" ");
+  const [city, setCity] = useState(" ");
 
   let {
     data: searchedCities,
     loading,
     error,
   } = useFetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${inputValue}&limit=${5}&appid=${
+    `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${5}&appid=${
       env.API_KEY
     }`,
     {}
   );
 
-  async function search(e) {
+  const onChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  function search(e) {
     e.preventDefault();
-    setInputValue(e.target[0].value);
+    setCity(e.target[0].value);
   }
 
   return (
@@ -39,12 +44,19 @@ function Search({
       >
         <button
           className="search-section-close_button"
-          onClick={() => setShowSearchingSection(false)}
+          onClick={() => {
+            setShowSearchingSection(false);
+            setInputValue("");
+            setCity(" ");
+          }}
         >
           &#10005;
         </button>
         <form className="search-section-form" onSubmit={search}>
           <input
+            value={inputValue}
+            name="search"
+            onChange={onChange}
             type="search"
             style={{ fontFamily: "Raleway, FontAwesome" }}
             className="search-section-form-input fa"
@@ -68,6 +80,7 @@ function Search({
                   setLocation({ lat: city.lat, lon: city.lon });
                   searchedCities = [];
                   setInputValue(" ");
+                  setCity(" ");
                 }}
               >
                 {`${city.name}, ${city.country}`}
