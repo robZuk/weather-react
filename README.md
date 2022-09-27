@@ -14,6 +14,13 @@
 - Current and Forecast weather in searched cities
 - Geolocation
 
+### Env Variables
+Create a .env file in then root and add the following
+
+```
+API_KEY = '...'
+```
+
 ### Install Dependencies
 
 ```

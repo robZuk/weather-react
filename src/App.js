@@ -8,7 +8,6 @@ import Footer from "./components/atoms/Footer";
 import Spinner from "./components/atoms/Spinner";
 import useFetch from "./hooks/useFetch";
 import { userCurrentPosition } from "./services/geolocation";
-import env from "react-dotenv";
 import { toast } from "react-toastify";
 
 function App() {
@@ -21,7 +20,7 @@ function App() {
     loading,
     error,
   } = useFetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lon}&appid=${env.API_KEY}`,
+    `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lon}&appid=${process.env.REACT_APP_API_KEY}`,
     {}
   );
 
@@ -52,6 +51,7 @@ function App() {
         ) : (
           <CurrentWeather
             data={dataCurrentWeather}
+            error={error}
             temperatureType={temperatureType}
             renderUserPosition={renderUserPosition}
             setShowSearchingSection={setShowSearchingSection}
@@ -73,7 +73,7 @@ function App() {
         {loading ? (
           <Spinner />
         ) : (
-          <HightlightsWeather data={dataCurrentWeather} />
+          <HightlightsWeather data={dataCurrentWeather} error={error} />
         )}
         <Footer />
       </section>

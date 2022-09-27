@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../atoms/Spinner";
-import env from "react-dotenv";
 import { toast } from "react-toastify";
 
 function Search({
@@ -18,7 +17,7 @@ function Search({
     error,
   } = useFetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${5}&appid=${
-      env.API_KEY
+      process.env.REACT_APP_API_KEY
     }`,
     {}
   );
