@@ -4,7 +4,7 @@ import { Temperature } from "../atoms/Temperature";
 import { formatDate } from "../../services/formatDate";
 import Spinner from "../atoms/Spinner";
 import useFetch from "../../hooks/useFetch";
-import env from "react-dotenv";
+
 import { toast } from "react-toastify";
 
 function ForecastWeather({ temperatureType, setTemperatureType, location }) {
@@ -16,7 +16,7 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
     loading,
     error,
   } = useFetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${env.API_KEY}`,
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_API_KEY}`,
     {}
   );
 
@@ -58,70 +58,78 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
 
   return (
     <>
-      <div className="icons-wrapper">
-        <button
-          className="celscius-icon active"
-          ref={celsiusIcon}
-          onClick={() => {
-            convertToCelsius();
-            toogleIcons(celsiusIcon);
-          }}
-        >
-          &deg;C
-        </button>
-        <button
-          className="fahrenheit-icon"
-          ref={fahrenheitIcon}
-          onClick={() => {
-            convertToFahrenheit();
-            toogleIcons(fahrenheitIcon);
-          }}
-        >
-          &deg;F
-        </button>
-      </div>
+      {!error && (
+        <div className="icons-wrapper">
+          <button
+            className="celscius-icon active"
+            ref={celsiusIcon}
+            onClick={() => {
+              convertToCelsius();
+              toogleIcons(celsiusIcon);
+            }}
+          >
+            &deg;C
+          </button>
+          <button
+            className="fahrenheit-icon"
+            ref={fahrenheitIcon}
+            onClick={() => {
+              convertToFahrenheit();
+              toogleIcons(fahrenheitIcon);
+            }}
+          >
+            &deg;F
+          </button>
+        </div>
+      )}
+
       {loading ? (
         <Spinner />
       ) : (
-        <div className="forecast-weather-section">
-          {Object.keys(groupByDate !== undefined && groupByDate).map((key) => (
-            <div className="forecast-weather-section-day" key={key}>
-              {key === formatDate(key).tomorrow.toISOString().slice(0, 10) ? (
-                <div className="-title">Tomorrow</div>
-              ) : (
-                <div className="-title">
-                  {formatDate(key).weekDay} {formatDate(key).monthDay}{" "}
-                  {formatDate(key).month}
+        !error && (
+          <div className="forecast-weather-section">
+            {Object.keys(groupByDate !== undefined && groupByDate).map(
+              (key) => (
+                <div className="forecast-weather-section-day" key={key}>
+                  {key ===
+                  formatDate(key).tomorrow.toISOString().slice(0, 10) ? (
+                    <div className="-title">Tomorrow</div>
+                  ) : (
+                    <div className="-title">
+                      {formatDate(key).weekDay} {formatDate(key).monthDay}{" "}
+                      {formatDate(key).month}
+                    </div>
+                  )}
+                  <Image
+                    data={
+                      groupByDate[key][3]
+                        ? groupByDate[key][3]
+                        : groupByDate[key][groupByDate[key].length - 1]
+                    }
+                  />
+                  <div className="forecast-weather-section-day-temperatures">
+                    <p>
+                      <Temperature
+                        temp={Math.min(
+                          ...groupByDate[key].map((item) => item.main.temp_min)
+                        )}
+                        temperatureType={temperatureType}
+                      />
+                    </p>
+                    <p>
+                      <Temperature
+                        temp={Math.max(
+                          ...groupByDate[key].map((item) => item.main.temp_max)
+                        )}
+                        temperatureType={temperatureType}
+                      />
+                    </p>
+                  </div>
                 </div>
-              )}
-              <Image
-                data={
-                  groupByDate[key][3]
-                    ? groupByDate[key][3]
-                    : groupByDate[key][groupByDate[key].length - 1]
-                }
-              />
-              <div className="forecast-weather-section-day-temperatures">
-                <p>
-                  <Temperature
-                    temp={Math.min(
-                      ...groupByDate[key].map((item) => item.main.temp_min)
-                    )}
-                    temperatureType={temperatureType}
-                  />
-                </p>
-                <p>
-                  <Temperature
-                    temp={Math.max(
-                      ...groupByDate[key].map((item) => item.main.temp_max)
-                    )}
-                    temperatureType={temperatureType}
-                  />
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+              )
+            )}
+          </div>
+        )
       )}
     </>
   );
