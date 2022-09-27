@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Image } from "../atoms/Image";
 import { Temperature } from "../atoms/Temperature";
 import { formatDate } from "../../services/formatDate";
 import Spinner from "../atoms/Spinner";
 import useFetch from "../../hooks/useFetch";
 import env from "react-dotenv";
+import { toast } from "react-toastify";
 
 function ForecastWeather({ temperatureType, setTemperatureType, location }) {
   const celsiusIcon = useRef();
@@ -18,6 +19,13 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
     `https://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${env.API_KEY}`,
     {}
   );
+
+  useEffect(() => {
+    error &&
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+  }, [error]);
 
   function toogleIcons(icon) {
     if (!icon.current.classList.contains("active")) {
@@ -72,11 +80,7 @@ function ForecastWeather({ temperatureType, setTemperatureType, location }) {
           &deg;F
         </button>
       </div>
-      {error ? (
-        <div className="alert alert-danger" role="alert">
-          {error.message}
-        </div>
-      ) : loading ? (
+      {loading ? (
         <Spinner />
       ) : (
         <div className="forecast-weather-section">

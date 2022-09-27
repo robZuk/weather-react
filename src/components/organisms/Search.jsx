@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../atoms/Spinner";
 import env from "react-dotenv";
+import { toast } from "react-toastify";
 
 function Search({
   showSearchingSection,
@@ -21,6 +22,13 @@ function Search({
     }`,
     {}
   );
+
+  useEffect(() => {
+    error &&
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+  }, [error]);
 
   const onChange = (e) => {
     setInputValue(e.target.value);

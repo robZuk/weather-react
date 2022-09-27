@@ -9,6 +9,7 @@ import Spinner from "./components/atoms/Spinner";
 import useFetch from "./hooks/useFetch";
 import { userCurrentPosition } from "./services/geolocation";
 import env from "react-dotenv";
+import { toast } from "react-toastify";
 
 function App() {
   const [temperatureType, setTemperatureType] = useState("celsius");
@@ -33,19 +34,20 @@ function App() {
   function renderUserPosition() {
     userCurrentPosition(weatherUserCity);
   }
+
   useEffect(() => {
     renderUserPosition();
+    error &&
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [error]);
 
   return (
     <div className="App">
       <section className="section1">
-        {error ? (
-          <div className="alert alert-danger" role="alert">
-            {error.message}
-          </div>
-        ) : loading ? (
+        {loading ? (
           <Spinner />
         ) : (
           <CurrentWeather
@@ -68,11 +70,7 @@ function App() {
           setTemperatureType={setTemperatureType}
           location={location}
         />
-        {error ? (
-          <div className="alert alert-danger" role="alert">
-            {error.message}
-          </div>
-        ) : loading ? (
+        {loading ? (
           <Spinner />
         ) : (
           <HightlightsWeather data={dataCurrentWeather} />
