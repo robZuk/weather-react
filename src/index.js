@@ -10,10 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
-    <ToastContainer
-    // style={{ top: "15vh", padding: "0 15px" }}
-    // position="top-center"
-    />
+    <ToastContainer />
   </React.StrictMode>
 );
 
